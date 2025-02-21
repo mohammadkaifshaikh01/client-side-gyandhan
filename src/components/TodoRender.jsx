@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { serverUrl } from "../App";
 
 const TodoRender = () => {
   const [todos, setTodos] = useState([]);
@@ -26,7 +27,7 @@ const TodoRender = () => {
     const create = { title, description, status, priority };
 
     try {
-      await axios.post("https://gyandhan-assignment.onrender.com/create", create);
+      await axios.post(`${serverUrl}/create`, create);
       fetchData();
       alert("Todo Added");
     } catch (error) {
@@ -42,7 +43,7 @@ const TodoRender = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("https://gyandhan-assignment.onrender.com/");
+      const response = await axios.get(`${serverUrl}`);
       setTodos(response.data.task);
     } catch (error) {
       console.error("Error fetching todos:", error);
@@ -65,7 +66,7 @@ const TodoRender = () => {
 
   const handleSave = async () => {
     try {
-      await axios.patch(`https://gyandhan-assignment.onrender.com/update/${updateTodo}`, updating);
+      await axios.patch(`${serverUrl}/update/${updateTodo}`, updating);
       setupdateTodo(null);
       fetchData();
     } catch (error) {
@@ -75,7 +76,7 @@ const TodoRender = () => {
 
   const handleDelete = async (_id) => {
     try {
-      await axios.delete(`https://gyandhan-assignment.onrender.com/delete/${_id}`);
+      await axios.delete(`${serverUrl}/delete/${_id}`);
       fetchData();
     } catch (error) {
       console.error("Error deleting todo:", error);

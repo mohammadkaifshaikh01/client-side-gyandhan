@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
+import { serverUrl } from '../App';
 
 
 const TodoList = () => {
@@ -15,7 +16,7 @@ const TodoList = () => {
 
       try{
 
-         const response = await axios.post("https://gyandhan-assignment.onrender.com/create", create )
+         const response = await axios.post(`${serverUrl}/create`, create )
          console.log(response.data);
          alert("Todo Added");
       }catch(error){
